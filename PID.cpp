@@ -1,12 +1,13 @@
 
 #include <iostream>
+
 using namespace std;
 
 class motor {
     protected:
     float a,k,b,w,j,V;
     float theta;
-    float Vconst;
+    
 
     public:
     motor(){}
@@ -14,8 +15,8 @@ class motor {
         this->k = k;
         this->b = b;
         this->j = J;
-        this->V = 0;
-        this->Vconst = Vconst;
+        this->V = Vconst;
+       
         //Initially thereno rotation 
         this->a = 0;
         this->w = 0;
@@ -84,8 +85,8 @@ class ProportionalControl : public PIDtop, public motor{
     }
     void display(){
         update_error_signal();
-        cout<<"[P] V:"<<V<<"\t\tTheta= "<<theta<<"\t\t x: "<<xt<<"\t\t e: "<<et<<endl;
-        cout<<"[P] w: "<<w<<"\t\ta: "<<a<<endl;
+        cout<<"[P] V:"<<V<<"\t\tTheta= "<<theta<<"\t\t e: "<<et;
+        cout<<"\t\tw: "<<w<<endl;
     }
 
 
@@ -93,10 +94,9 @@ class ProportionalControl : public PIDtop, public motor{
     void Controller(){
         
         update_error_signal();
-        if(et == 0 || et <0.05)
-            V = 0;
-        else 
-            V = kP * Vconst;
+        V = V * et;
+        V = (V > 4.0f) ? 4.0f : ((V < 0.0f) ? 0.0f : V);
+
     }
 };
 
@@ -139,8 +139,10 @@ int main(){
         p1.display();
         p1.Controller();
         p1.reflect_motor_rotation(dt);
-        if(p1.get_omega() <= 0.0005)
+        if(p1.get_omega() <= 0.0005){        
+            p1.display();
             break;
+        }
         counter ++;
     }
     
