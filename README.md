@@ -28,23 +28,6 @@ The PID controller adjusts the input voltage to drive the motor to a desired ang
 
 ---
 
-## Project Structure
-PID_Controller/
-│
-├── include/
-│ └── PIDCLASS.h # Header file containing all class declarations
-│
-├── src/
-│ └── main.cpp # Main program logic
-│
-├── Makefile # Build configuration for Windows (MinGW)
-│
-└── README.md # Project documentation
-
-
-
----
-
 ## Build & Run Instructions (Windows)
 
 ### 1. Prerequisites
