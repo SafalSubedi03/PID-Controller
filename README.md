@@ -59,6 +59,7 @@ mingw32-make
 ### 3. Run the Executable
 After a successful build, run:
 ```bash
+mingw32-make run
 ./main.exe
 ```
 ### 4. Clean Build Files
